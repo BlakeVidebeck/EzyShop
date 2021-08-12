@@ -1,17 +1,8 @@
 import React from "react";
-import { StyleSheet, Text, View, FlatList } from "react-native";
+import { StyleSheet, View, FlatList } from "react-native";
 
 import { products } from "../../../mockItems";
-import { Item } from "./Product";
-
-interface Product {
-  name: string;
-  price: number;
-}
-
-interface Props {
-  product: Product[];
-}
+import { Product, Item } from "../../components/Product";
 
 export const ShopScreen: React.FC = () => {
   return (

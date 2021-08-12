@@ -1,25 +1,29 @@
 import React from "react";
-import { View, Text, StyleSheet, Button, Image } from "react-native";
-import { Card } from "react-native-paper";
+import { View, Text, StyleSheet, Button } from "react-native";
 
-import * as fonts from "../../infrastructure/styles/fonts";
-import * as spacing from "../../infrastructure/styles/spacing";
+import * as fonts from "../infrastructure/styles/fonts";
+import * as spacing from "../infrastructure/styles/spacing";
 
-interface Product {
+export interface Product {
   name: string;
   price: number;
 }
 
 interface Props {
   product: Product;
+  checkout?: boolean;
 }
 
-export const Item: React.FC<Props> = ({ product }) => {
+export const Item: React.FC<Props> = ({ product, checkout }) => {
   return (
     <View style={Styles.container}>
       <Text style={Styles.name}>{product.name}</Text>
       <Text style={Styles.price}>${product.price}</Text>
-      <Button title="Add to cart" onPress={() => null} />
+      {checkout ? (
+        <Button title="Remove from cart" onPress={() => null} />
+      ) : (
+        <Button title="Add to cart" onPress={() => null} />
+      )}
     </View>
   );
 };

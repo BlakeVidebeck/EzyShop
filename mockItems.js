@@ -5,3 +5,8 @@ export const products = [
   { name: "Chisel", price: 12.9 },
   { name: "Hacksaw", price: 18.45 },
 ];
+
+export const checkoutProducts = [
+  { name: "Bandsaw", price: 562.13 },
+  { name: "Chisel", price: 12.9 },
+];

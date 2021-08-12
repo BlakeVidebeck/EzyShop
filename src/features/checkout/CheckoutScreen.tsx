@@ -1,10 +1,19 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { FlatList, StyleSheet, View } from "react-native";
+
+import { checkoutProducts } from "../../../mockItems";
+import { Product, Item } from "../../components/Product";
 
 export const CheckoutScreen: React.FC = () => {
   return (
     <View style={Styles.background}>
-      <Text>Welcome to the Checkout screen</Text>
+      <FlatList<Product>
+        data={checkoutProducts}
+        renderItem={({ item }) => {
+          return <Item key={item.name} product={item} checkout />;
+        }}
+        keyExtractor={(product) => product.name}
+      />
     </View>
   );
 };
@@ -12,6 +21,5 @@ export const CheckoutScreen: React.FC = () => {
 const Styles = StyleSheet.create({
   background: {
     flex: 1,
-    backgroundColor: "blue",
   },
 });

@@ -5,6 +5,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import React from "react";
 import { SafeAreaView } from "react-native";
 
+import { checkoutProducts } from "./mockItems";
 import { CheckoutScreen } from "./src/features/checkout/CheckoutScreen";
 import { ShopScreen } from "./src/features/shop/ShopScreen";
 
@@ -35,7 +36,7 @@ export default function App() {
         <Tab.Screen
           name="Checkout"
           component={CheckoutScreen}
-          options={{ tabBarBadge: 3 }}
+          options={{ tabBarBadge: checkoutProducts.length }}
         />
       </Tab.Navigator>
     </NavigationContainer>
