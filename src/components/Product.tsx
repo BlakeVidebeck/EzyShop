@@ -1,8 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet, Button } from "react-native";
 
-import * as fonts from "../infrastructure/styles/fonts";
-import * as spacing from "../infrastructure/styles/spacing";
+import { space, fontSizes } from "../infrastructure/styles/";
 
 export interface Product {
   name: string;
@@ -30,17 +29,17 @@ export const Item: React.FC<Props> = ({ product, checkout }) => {
 
 const Styles = StyleSheet.create({
   container: {
-    padding: spacing.space[3],
-    margin: spacing.space[1],
+    padding: space[3],
+    margin: space[1],
     display: "flex",
     alignItems: "center",
     backgroundColor: "white",
   },
   name: {
-    fontSize: fonts.fontSizes.title,
+    fontSize: fontSizes.title,
   },
   price: {
-    fontSize: fonts.fontSizes.caption,
-    padding: spacing.space[1],
+    fontSize: fontSizes.caption,
+    padding: space[1],
   },
 });
