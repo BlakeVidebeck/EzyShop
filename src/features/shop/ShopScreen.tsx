@@ -1,16 +1,28 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
-import { useSelector, useDispatch } from "react-redux";
+import { StyleSheet, Text, View, FlatList } from "react-native";
 
 import { products } from "../../../mockItems";
+import { Item } from "./Product";
+
+interface Product {
+  name: string;
+  price: number;
+}
+
+interface Props {
+  product: Product[];
+}
 
 export const ShopScreen: React.FC = () => {
   return (
     <View style={Styles.background}>
-      <Text>Welcome to the shop screen</Text>
-      {products.map((product) => {
-        return <Text key={product.name}>{product.name}</Text>;
-      })}
+      <FlatList<Product>
+        data={products}
+        renderItem={({ item }) => {
+          return <Item key={item.name} product={item} />;
+        }}
+        keyExtractor={(product) => product.name}
+      />
     </View>
   );
 };
@@ -18,6 +30,5 @@ export const ShopScreen: React.FC = () => {
 const Styles = StyleSheet.create({
   background: {
     flex: 1,
-    backgroundColor: "green",
   },
 });
