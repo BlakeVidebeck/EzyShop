@@ -2,11 +2,10 @@ import { Ionicons } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
 import React from "react";
-import { useSelector } from "react-redux";
 
-import { RootState } from "../../../App";
 import { CheckoutScreen } from "../../features/checkout/CheckoutScreen";
 import { ShopScreen } from "../../features/shop/ShopScreen";
+import { useAppSelector } from "../../hooks";
 
 const Tab = createBottomTabNavigator();
 
@@ -27,7 +26,7 @@ const createScreenOptions = ({ route }) => {
 };
 
 export const Navigation = () => {
-  const cart = useSelector((state: RootState) => state.cart.cart);
+  const { cart } = useAppSelector((state) => state.cart);
 
   return (
     <NavigationContainer>

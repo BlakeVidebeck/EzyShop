@@ -1,16 +1,15 @@
 import React from "react";
 import { FlatList, StyleSheet, View, SafeAreaView } from "react-native";
-import { useSelector } from "react-redux";
 
-import { RootState } from "../../../App";
 import { Product, Item } from "../../components/Product";
 import { Subtotal } from "../../components/Subtotal";
+import { useAppSelector } from "../../hooks";
 
 export const CheckoutScreen: React.FC = () => {
-  const cart = useSelector((state: RootState) => state.cart.cart);
+  const { cart } = useAppSelector((state) => state.cart);
 
   const getCartTotal = (cart: any) =>
-    cart?.reduce((amount, item) => item.price + amount, 0);
+    cart?.reduce((amount: number, item: Product) => item.price + amount, 0);
 
   const subtotal = getCartTotal(cart);
 

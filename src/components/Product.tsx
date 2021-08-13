@@ -1,8 +1,8 @@
 import React from "react";
 import { View, Text, StyleSheet, Button } from "react-native";
-import { useDispatch } from "react-redux";
 
-import { addToCart } from "../features/cart/CartSlice";
+import { addToCart, removeFromCart } from "../features/cart/CartSlice";
+import { useAppDispatch } from "../hooks";
 import { space, fontSizes } from "../infrastructure/styles/";
 
 export interface Product {
@@ -16,14 +16,17 @@ interface Props {
 }
 
 export const Item: React.FC<Props> = ({ product, checkout }) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   return (
     <View style={Styles.container}>
       <Text style={Styles.name}>{product.name}</Text>
       <Text style={Styles.price}>${product.price}</Text>
       {checkout ? (
-        <Button title="Remove from cart" onPress={() => null} />
+        <Button
+          title="Remove from cart"
+          onPress={() => dispatch(removeFromCart(product.name))}
+        />
       ) : (
         <Button
           title="Add to cart"
