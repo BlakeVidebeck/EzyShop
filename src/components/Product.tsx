@@ -1,6 +1,8 @@
 import React from "react";
 import { View, Text, StyleSheet, Button } from "react-native";
+import { useDispatch } from "react-redux";
 
+import { addToCart } from "../features/cart/CartSlice";
 import { space, fontSizes } from "../infrastructure/styles/";
 
 export interface Product {
@@ -14,6 +16,8 @@ interface Props {
 }
 
 export const Item: React.FC<Props> = ({ product, checkout }) => {
+  const dispatch = useDispatch();
+
   return (
     <View style={Styles.container}>
       <Text style={Styles.name}>{product.name}</Text>
@@ -21,7 +25,10 @@ export const Item: React.FC<Props> = ({ product, checkout }) => {
       {checkout ? (
         <Button title="Remove from cart" onPress={() => null} />
       ) : (
-        <Button title="Add to cart" onPress={() => null} />
+        <Button
+          title="Add to cart"
+          onPress={() => dispatch(addToCart(product))}
+        />
       )}
     </View>
   );

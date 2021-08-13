@@ -1,44 +1,23 @@
-// import { StatusBar } from "expo-status-bar";
-import { Ionicons } from "@expo/vector-icons";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { NavigationContainer } from "@react-navigation/native";
+import { configureStore } from "@reduxjs/toolkit";
 import React from "react";
-import { SafeAreaView } from "react-native";
+import { Provider } from "react-redux";
 
-import { checkoutProducts } from "./mockItems";
-import { CheckoutScreen } from "./src/features/checkout/CheckoutScreen";
-import { ShopScreen } from "./src/features/shop/ShopScreen";
+import cartReducer from "./src/features/cart/CartSlice";
+import { Navigation } from "./src/infrastructure/navigation";
 
-const Tab = createBottomTabNavigator();
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
 
-const TAB_ICON = {
-  Shop: "pricetag",
-  Checkout: "cart",
-};
-
-// TODO fix
-const createScreenOptions = ({ route }) => {
-  const iconName = TAB_ICON[route.name];
-  return {
-    headerShown: false,
-    tabBarIcon: ({ size, color }) => (
-      <Ionicons name={iconName} size={size} color={color} />
-    ),
-  };
-};
+const store = configureStore({
+  reducer: {
+    cart: cartReducer,
+  },
+});
 
 export default function App() {
   return (
-    <NavigationContainer>
-      <SafeAreaView />
-      <Tab.Navigator screenOptions={createScreenOptions}>
-        <Tab.Screen name="Shop" component={ShopScreen} />
-        <Tab.Screen
-          name="Checkout"
-          component={CheckoutScreen}
-          options={{ tabBarBadge: checkoutProducts.length }}
-        />
-      </Tab.Navigator>
-    </NavigationContainer>
+    <Provider store={store}>
+      <Navigation />
+    </Provider>
   );
 }

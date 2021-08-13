@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, View, FlatList } from "react-native";
+import { StyleSheet, View, FlatList, SafeAreaView } from "react-native";
 
 import { products } from "../../../mockItems";
 import { Product, Item } from "../../components/Product";
@@ -7,6 +7,7 @@ import { Product, Item } from "../../components/Product";
 export const ShopScreen: React.FC = () => {
   return (
     <View style={Styles.background}>
+      <SafeAreaView />
       <FlatList<Product>
         data={products}
         renderItem={({ item }) => {
