@@ -39,7 +39,7 @@ const Styles = StyleSheet.create({
     fontSize: fontSizes.title,
   },
   price: {
-    fontSize: fontSizes.caption,
+    fontSize: fontSizes.body,
     padding: space[1],
   },
 });

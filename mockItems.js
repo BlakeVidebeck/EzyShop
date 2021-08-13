@@ -8,5 +8,6 @@ export const products = [
 
 export const checkoutProducts = [
   { name: "Bandsaw", price: 562.13 },
+  { name: "Sledgehammer", price: 125.75 },
   { name: "Chisel", price: 12.9 },
 ];
