@@ -2,16 +2,32 @@ import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 
 import { fontSizes, space } from "../infrastructure/styles";
+import { Product } from "./Product";
 
 interface Props {
-  subtotal: number;
+  cart: Product[];
 }
 
-export const Subtotal: React.FC<Props> = ({ subtotal }) => {
+export const Subtotal: React.FC<Props> = ({ cart }) => {
   return (
-    <View style={Styles.container}>
-      <Text style={Styles.cart}>Cart Subtotal</Text>
-      <Text style={Styles.price}>${subtotal}</Text>
+    <View>
+      {cart.length === 0 ? (
+        <View style={Styles.container}>
+          <Text>Your cart is empty</Text>
+        </View>
+      ) : (
+        <View style={Styles.container}>
+          <Text style={Styles.cart}>
+            Subtotal {cart.reduce((amount, item) => amount + item.qty, 0)} Items
+          </Text>
+          <Text style={Styles.price}>
+            $
+            {cart
+              .reduce((amount, item) => amount + item.qty * item.price, 0)
+              .toFixed(2)}
+          </Text>
+        </View>
+      )}
     </View>
   );
 };

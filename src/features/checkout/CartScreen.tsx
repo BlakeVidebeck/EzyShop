@@ -5,18 +5,13 @@ import { Product, Item } from "../../components/Product";
 import { Subtotal } from "../../components/Subtotal";
 import { useAppSelector } from "../../hooks";
 
-export const CheckoutScreen: React.FC = () => {
+export const CartScreen: React.FC = () => {
   const { cart } = useAppSelector((state) => state.cart);
-
-  const getCartTotal = (cart: any) =>
-    cart?.reduce((amount: number, item: Product) => item.price + amount, 0);
-
-  const subtotal = getCartTotal(cart);
 
   return (
     <View style={Styles.background}>
       <SafeAreaView />
-      <Subtotal subtotal={subtotal} />
+      <Subtotal cart={cart} />
       <FlatList<Product>
         data={cart}
         renderItem={({ item }) => {

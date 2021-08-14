@@ -3,7 +3,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
 import React from "react";
 
-import { CheckoutScreen } from "../../features/checkout/CheckoutScreen";
+import { CartScreen } from "../../features/checkout/CartScreen";
 import { ShopScreen } from "../../features/shop/ShopScreen";
 import { useAppSelector } from "../../hooks";
 
@@ -11,7 +11,7 @@ const Tab = createBottomTabNavigator();
 
 const TAB_ICON = {
   Shop: "pricetag",
-  Checkout: "cart",
+  Cart: "cart",
 };
 
 // TODO fix
@@ -33,8 +33,8 @@ export const Navigation = () => {
       <Tab.Navigator screenOptions={createScreenOptions}>
         <Tab.Screen name="Shop" component={ShopScreen} />
         <Tab.Screen
-          name="Checkout"
-          component={CheckoutScreen}
+          name="Cart"
+          component={CartScreen}
           options={{ tabBarBadge: cart.length }}
         />
       </Tab.Navigator>

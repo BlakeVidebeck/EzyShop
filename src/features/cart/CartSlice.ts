@@ -16,7 +16,12 @@ const cartSlice = createSlice({
   initialState,
   reducers: {
     addToCart: (state, { payload }: PayloadAction<Product>) => {
-      state.cart = [...state.cart, payload];
+      const existItem = state.cart.find((x) => x.name === payload.name);
+      if (existItem) {
+        state.cart = state.cart.map((x) => (x === existItem ? payload : x));
+      } else {
+        state.cart = [...state.cart, payload];
+      }
     },
     removeFromCart: (state, { payload }: PayloadAction<string>) => {
       state.cart = state.cart.filter((item) => item.name !== payload);
