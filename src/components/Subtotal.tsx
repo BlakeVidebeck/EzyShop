@@ -9,6 +9,8 @@ interface Props {
 }
 
 export const Subtotal: React.FC<Props> = ({ cart }) => {
+  const subtotal = cart.reduce((amount, item) => amount + item.qty, 0);
+
   return (
     <View>
       {cart.length === 0 ? (
@@ -17,13 +19,15 @@ export const Subtotal: React.FC<Props> = ({ cart }) => {
         </View>
       ) : (
         <View style={Styles.container}>
-          <Text style={Styles.cart}>
-            Subtotal {cart.reduce((amount, item) => amount + item.qty, 0)} Items
-          </Text>
+          <Text style={Styles.cart}>Subtotal {subtotal} Items</Text>
           <Text style={Styles.price}>
             $
             {cart
-              .reduce((amount, item) => amount + item.qty * item.price, 0)
+              .reduce(
+                (amount: number, item: Product) =>
+                  amount + item.qty * item.price,
+                0
+              )
               .toFixed(2)}
           </Text>
         </View>
@@ -34,7 +38,7 @@ export const Subtotal: React.FC<Props> = ({ cart }) => {
 
 const Styles = StyleSheet.create({
   container: {
-    height: 150,
+    height: 100,
     display: "flex",
     justifyContent: "center",
     alignItems: "center",

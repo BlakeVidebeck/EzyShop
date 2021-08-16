@@ -4,3 +4,8 @@ export const fontSizes = {
   body: 16,
   title: 20,
 };
+
+export const fontColor = {
+  error: "red",
+  success: "green",
+};

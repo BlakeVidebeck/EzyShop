@@ -1,7 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet, Button } from "react-native";
 
-import { addToCart, removeFromCart } from "../features/cart/CartSlice";
+import {
+  removeFromCart,
+  addToCart,
+  updateCart,
+} from "../features/cart/CartSlice";
 import { useAppDispatch } from "../hooks";
 import { space, fontSizes } from "../infrastructure/styles/";
 
@@ -17,43 +21,37 @@ interface Props {
 }
 
 export const Item: React.FC<Props> = ({ product, checkout }) => {
-  const productQty = product.qty ? product.qty : 1;
+  const Qty = product.qty ? product.qty : 1;
   const dispatch = useAppDispatch();
-  const [qty, setQty] = useState(productQty);
 
-  const incrementQty = () => {
-    setQty(qty + 1);
-    dispatch(addToCart(newProduct));
-  };
-  const decrementQty = () => {
-    setQty(qty - 1);
-    dispatch(addToCart(newProduct));
-  };
+  const [qty, setQty] = useState(Qty);
 
-  if (qty <= 0) {
-    dispatch(removeFromCart(product.name));
-  }
-
-  const newProduct = {
-    name: product.name,
-    price: product.price,
-    qty,
-  };
+  useEffect(() => {
+    if (checkout && qty <= 0) {
+      dispatch(removeFromCart(product.name));
+    }
+    if (checkout) {
+      dispatch(updateCart(product, qty));
+    }
+  }, [qty]);
 
   return (
     <View style={Styles.container}>
       <Text style={Styles.name}>{product.name}</Text>
       <Text style={Styles.price}>
-        ${Number(product.price * qty).toFixed(2)}
+        $
+        {product.qty
+          ? Number(product.price * product.qty).toFixed(2)
+          : Number(product.price).toFixed(2)}
       </Text>
       {checkout ? (
         <>
           <View style={Styles.qtyContainer}>
             <Text>Quantity</Text>
             <View style={Styles.qty}>
-              <Button title="-" onPress={decrementQty} />
-              <Text>{qty}</Text>
-              <Button title="+" onPress={incrementQty} />
+              <Button title="-" onPress={() => setQty(qty - 1)} />
+              <Text>{product.qty ? product.qty : qty}</Text>
+              <Button title="+" onPress={() => setQty(qty + 1)} />
             </View>
           </View>
 
@@ -65,7 +63,7 @@ export const Item: React.FC<Props> = ({ product, checkout }) => {
       ) : (
         <Button
           title="Add to cart"
-          onPress={() => dispatch(addToCart(newProduct))}
+          onPress={() => dispatch(addToCart(product, qty))}
         />
       )}
     </View>
@@ -74,14 +72,14 @@ export const Item: React.FC<Props> = ({ product, checkout }) => {
 
 const Styles = StyleSheet.create({
   container: {
-    padding: space[3],
+    padding: space[2],
     margin: space[1],
     display: "flex",
     alignItems: "center",
     backgroundColor: "white",
   },
   name: {
-    fontSize: fontSizes.title,
+    fontSize: fontSizes.body,
   },
   price: {
     fontSize: fontSizes.body,
