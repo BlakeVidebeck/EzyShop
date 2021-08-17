@@ -17,11 +17,15 @@ const cartSlice = createSlice({
   reducers: {
     addToCart: {
       reducer(state, { payload }: PayloadAction<Product>) {
-        // find out if the only item exists
+        // find out if the item exists
         const existItem = state.cart.find((x) => x.name === payload.name);
         if (existItem) {
-          // if item does exist then return the cart
-          state.cart = [...state.cart];
+          // if item does exist then map through the cart and find the item and replace it with a copy with +1 to the quantity
+          state.cart = state.cart.map((x) =>
+            x.name === payload.name
+              ? { ...existItem, qty: existItem.qty + 1 }
+              : x
+          );
         } else {
           // if the item doesn't exist then push the payload to the cart
           state.cart.push(payload);
