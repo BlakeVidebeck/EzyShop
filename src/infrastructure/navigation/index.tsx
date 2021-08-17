@@ -45,6 +45,7 @@ export const Navigation = () => {
     saveCart();
   }, [cart]);
 
+  // load the cart from phone storage
   const loadCart = async () => {
     try {
       const value = await AsyncStorage.getItem(`@cart`);
@@ -56,6 +57,7 @@ export const Navigation = () => {
     }
   };
 
+  // save the cart to phone storage
   const saveCart = async () => {
     try {
       const cartJSON = JSON.stringify(cart);

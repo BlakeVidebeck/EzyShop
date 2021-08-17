@@ -37,7 +37,10 @@ export const CheckoutScreen: React.FC = ({ navigation }: any) => {
             <Text>567</Text>
           </View>
         </View>
-        <Button title="Confirm Payment" onPress={confirmPayment} />
+        {/* if no cart items then dont show payment button */}
+        {!!cart.length && (
+          <Button title="Confirm Payment" onPress={confirmPayment} />
+        )}
       </View>
     </View>
   );
