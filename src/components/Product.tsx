@@ -77,15 +77,12 @@ const Styles = StyleSheet.create({
     width: 100,
     marginTop: space[2],
   },
-  price: {
-    fontSize: fontSizes.body,
-    paddingTop: space[1],
-  },
   total: {
     fontSize: fontSizes.body,
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
+    padding: space[1],
   },
 });
