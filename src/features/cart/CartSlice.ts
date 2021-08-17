@@ -31,29 +31,12 @@ const cartSlice = createSlice({
           state.cart.push(payload);
         }
       },
-      prepare(product: Product, qty: number) {
+      prepare(product: Product) {
         return {
           payload: {
             name: product.name,
             price: product.price,
-            qty,
-          },
-        };
-      },
-    },
-    updateCart: {
-      reducer(state, { payload }: PayloadAction<Product>) {
-        // update the cart with the new payload
-        state.cart = state.cart.map((product) =>
-          product.name === payload.name ? payload : product
-        );
-      },
-      prepare(product: Product, qty: number) {
-        return {
-          payload: {
-            name: product.name,
-            price: product.price,
-            qty,
+            qty: 1,
           },
         };
       },
@@ -71,7 +54,6 @@ const cartSlice = createSlice({
   },
 });
 
-export const { addToCart, removeFromCart, updateCart, setCart, reset } =
-  cartSlice.actions;
+export const { addToCart, removeFromCart, setCart, reset } = cartSlice.actions;
 export const cart = (state: RootState) => state.cart;
 export default cartSlice.reducer;

@@ -1,11 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { View, Text, StyleSheet, Button } from "react-native";
 
-import {
-  removeFromCart,
-  addToCart,
-  updateCart,
-} from "../features/cart/CartSlice";
+import { removeFromCart, addToCart } from "../features/cart/CartSlice";
 import { useAppDispatch } from "../hooks";
 import { space, fontSizes } from "../infrastructure/styles/";
 
@@ -21,37 +17,25 @@ interface Props {
 }
 
 export const Item: React.FC<Props> = ({ product, checkout }) => {
-  const Qty = product.qty ? product.qty : 1;
   const dispatch = useAppDispatch();
-
-  const [qty, setQty] = useState(Qty);
-
-  useEffect(() => {
-    if (checkout && qty <= 0) {
-      dispatch(removeFromCart(product.name));
-    }
-    if (checkout) {
-      dispatch(updateCart(product, qty));
-    }
-  }, [qty]);
 
   return (
     <View style={Styles.container}>
       <Text style={Styles.name}>{product.name}</Text>
-      <Text style={Styles.price}>
-        $
-        {product.qty
-          ? Number(product.price * product.qty).toFixed(2)
-          : Number(product.price).toFixed(2)}
-      </Text>
       {checkout ? (
         <>
-          <View style={Styles.qtyContainer}>
-            <Text>Quantity</Text>
-            <View style={Styles.qty}>
-              <Button title="-" onPress={() => setQty(qty - 1)} />
-              <Text>{product.qty ? product.qty : qty}</Text>
-              <Button title="+" onPress={() => setQty(qty + 1)} />
+          <View style={Styles.totalContainer}>
+            <View style={Styles.total}>
+              <Text>Price: </Text>
+              <Text>${Number(product.price).toFixed(2)}</Text>
+            </View>
+            <View style={Styles.total}>
+              <Text>Qty: </Text>
+              <Text>{product.qty}</Text>
+            </View>
+            <View style={Styles.total}>
+              <Text>Total: </Text>
+              <Text>${Number(product.price * product.qty).toFixed(2)}</Text>
             </View>
           </View>
 
@@ -61,10 +45,18 @@ export const Item: React.FC<Props> = ({ product, checkout }) => {
           />
         </>
       ) : (
-        <Button
-          title="Add to cart"
-          onPress={() => dispatch(addToCart(product, qty))}
-        />
+        <>
+          <View style={Styles.totalContainer}>
+            <View style={Styles.total}>
+              <Text>Price: </Text>
+              <Text>${Number(product.price).toFixed(2)}</Text>
+            </View>
+          </View>
+          <Button
+            title="Add to cart"
+            onPress={() => dispatch(addToCart(product))}
+          />
+        </>
       )}
     </View>
   );
@@ -79,18 +71,21 @@ const Styles = StyleSheet.create({
     backgroundColor: "white",
   },
   name: {
-    fontSize: fontSizes.body,
+    fontSize: fontSizes.title,
+  },
+  totalContainer: {
+    width: 100,
+    marginTop: space[2],
   },
   price: {
     fontSize: fontSizes.body,
-    padding: space[1],
+    paddingTop: space[1],
   },
-  qty: {
+  total: {
+    fontSize: fontSizes.body,
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
-  },
-  qtyContainer: {
-    marginTop: space[2],
+    justifyContent: "space-between",
   },
 });
