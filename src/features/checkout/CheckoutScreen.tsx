@@ -31,10 +31,10 @@ export const CheckoutScreen: React.FC = ({ navigation }: any) => {
         <View style={Styles.section}>
           <Text style={Styles.title}>Payment Information</Text>
           <Text style={Styles.details}>Visa</Text>
-          <Text>4242 4242 4242 4242</Text>
+          <Text>Card Number: 4242 4242 4242 4242</Text>
           <View style={Styles.card}>
-            <Text>03/23</Text>
-            <Text>567</Text>
+            <Text>EXP: 03/23</Text>
+            <Text>CVC: 567</Text>
           </View>
         </View>
         {/* if no cart items then dont show payment button */}
@@ -69,7 +69,7 @@ const Styles = StyleSheet.create({
   },
   card: {
     display: "flex",
-    width: 100,
+    width: 200,
     flexDirection: "row",
     justifyContent: "space-between",
   },
